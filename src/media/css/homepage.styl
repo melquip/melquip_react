@@ -1,0 +1,225 @@
+$degrees = unquote('10deg')
+$degreesInvert = unquote('-10deg')
+
+body
+	background-color $black-20
+
+.page
+	position relative
+	size 100% 100vh
+	overflow-y auto
+	overflow-x hidden
+.inner
+	padding 0 80px
+
+#mouse
+	display block
+	size 30px
+	z-index 9999
+	fixed top -100px left -100px
+	border-radius 100%
+	border 3px solid $white
+	transform translate(-50%, -50%)
+	//transition transform 1s cubic-bezier(0.770, 0.000, 0.175, 1.000)
+	pointer-events none
+	//transition width .333s ease-in-out, height .333s ease-in-out, border .333s ease-in-out, background-color .333s ease-in-out
+	&.clickAnim
+		animation clickAnim .333s forwards
+	&.enterAnim
+		&:not(.clickAnim)
+			animation enterAnim .333s forwards
+	&.leaveAnim
+		&:not(.enterAnim)
+			animation leaveAnim .333s forwards
+
+
+@keyframes enterAnim
+	0%
+		border-width 3px
+		background-color transparent
+	50%
+		border-width 0
+	100%
+		border-width 0
+		box-shadow 0 0 5px rgba(0,0,0,.6)
+		background-color rgba(0,0,0,.5)
+
+
+@keyframes leaveAnim
+	0%
+		border-width 0
+		box-shadow 0 0 5px rgba(0,0,0,.6)
+		background-color rgba(0,0,0,.5)
+	100%
+		border-width 3px
+		background-color transparent
+
+@keyframes clickAnim
+	0%
+		border-width 3px
+	50%
+		size 15px
+		border-width 8px
+	100%
+		size 30px
+		border-width 3px
+
+menuIsActive()
+	div
+		&:nth-child(1)
+			top 40px
+		&:nth-child(2)
+			opacity 0
+		&:nth-child(3)
+			top 40px
+
+body
+	.menu-open
+		height 100vh
+		.hamburguer
+			menuIsActive()
+			background-color $green25
+			//&:hover
+			div
+				&:nth-child(1)
+					transform rotate(-45deg) translate3d(-55%,0,0)
+				&:nth-child(3)
+					transform rotate(45deg) translate3d(-46%,0,0)
+
+header
+	z-index 10
+	top 0
+	size 100% 80px
+	.logo
+		display block
+		padding 15px 0
+		margin 0 auto
+		width 100px
+	img
+		margin 0
+		height 50px
+		object-fit contain
+
+.hamburguer
+	size 80px
+	cursor pointer
+	absolute top 0 left 52px
+	transition all .2s ease-in-out
+
+	&:hover
+		//background-color $green25
+		//cornersOnHover()
+		div
+			&:nth-child(1)
+				top 34px
+			&:nth-child(3)
+				top 46px
+
+	&:active
+		menuIsActive()
+
+	div
+		size 28px 2px
+		absolute left 50%
+		transform translate3d(-50%,0,0)
+		background-color $white
+		transition all .2s ease-in-out
+		transform-origin top left
+		&:nth-child(1)
+			top 27px
+		&:nth-child(2)
+			top 40px
+		&:nth-child(3)
+			top 53px
+
+
+footer
+	z-index 9
+	bottom 0
+	.flex
+		.column
+			f 16, 80, 'regular2' lowercase $white
+
+header, footer
+	absolute left 0
+	width 100%
+
+
+
+
+
+
+
+
+
+$_titlePadding = unit(40, 'px')
+h1, h2
+	position relative
+	padding $_titlePadding
+	f 40, 46, 'regular2' .1em $white nowrap
+
+h1:after
+	content ''
+	size 100% 0px
+	border-bottom 1px dotted
+	absolute bottom 0 left 0
+
+#content
+	overflow hidden
+
+.content
+	size 100% calc(100vh - 160px)
+	overflow hidden
+	position relative
+	background-color $greenLight // $greenLight
+
+	.slide
+		display block
+
+		size 125% 100%
+		margin-left -75%
+
+		z-index 2
+		absolute top 0 left 0
+
+		background-color $greenDark
+		transform skew($degreesInvert)
+
+		&.smooth
+			transition all 1s cubic-bezier(.2,.8,.2,1)
+
+.Tilt
+	size 100%
+	padding: 80px
+	position relative
+	transform-style preserve-3d
+
+.TiltOverlay
+	user-select none
+	z-index 4
+	width auto
+	absolute top 50% left 50%
+	transform translate(-50%, -50%) translateZ(250px)
+
+	h1, h2
+		span
+			opacity 1
+			visibility visible
+			transition all 0.2s ease-in-out
+			&:first-child
+				text-transform uppercase
+			&:last-child
+				width 100%
+				text-transform lowercase
+				absolute top $_titlePadding left $_titlePadding
+				visibility hidden
+				opacity 0
+
+		&:hover
+			span
+				&:first-child
+					opacity 0
+					visibility hidden
+				&:last-child
+					opacity 1
+					visibility visible
