@@ -20,9 +20,6 @@ export default function(state = initialState, action) {
 			};
 		case MOUSE_LEAVE_ANIMATION:
 			mouseClasses = state.animation.filter((c, i) => c !== 'enterAnim' && c !== 'leaveAnim');
-			if(action.payload !== true) {
-				mouseClasses.push('leaveAnim');
-			}
 			return {
 				...state,
 				animation: [...mouseClasses]

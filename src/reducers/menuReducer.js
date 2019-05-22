@@ -3,6 +3,8 @@ import {
 } from "../actions/types";
 
 const initialState = {
+	prevPage: 'home',
+	page: 'home',
 	menuOpen: false,
 	menuClass: []
 };
@@ -18,7 +20,9 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				menuOpen: !state.menuOpen,
-				menuClass: [...menuClasses]
+				menuClass: [...menuClasses],
+				prevPage: state.page,
+				page: (!state.menuOpen ? 'menu' : state.prevPage),
 			};
 		default:
 			return state;

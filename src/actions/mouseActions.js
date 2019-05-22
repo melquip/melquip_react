@@ -11,10 +11,10 @@ export const mouseEnterAnimation = event => dispatch => {
 		payload: true,//event.target
 	})
 };
-export const mouseLeaveAnimation = removeAll => dispatch => {
+export const mouseLeaveAnimation = event => dispatch => {
 	dispatch({
 		type: MOUSE_LEAVE_ANIMATION,
-		payload: removeAll,//event.target
+		payload: true,//event.target
 	})
 };
 export const mouseDownAnimation = remove => dispatch => {

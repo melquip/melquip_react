@@ -4,21 +4,29 @@ import { connect } from 'react-redux';
 import { toggleMenu } from '../../actions/menuActions';
 import { mouseEnterAnimation, mouseLeaveAnimation, mouseUpAnimation, mouseDownAnimation } from '../../actions/mouseActions';
 
-import Header from '../../components/Header';
 import Content from '../../containers/Content';
-import Footer from '../../containers/Footer';
 
-import Mouse from '../../components/Mouse.js';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Mouse from '../../components/Mouse';
 
 class App extends Component {
+	componentDidMount() {
+		document.body.addEventListener('mousemove', this.onMouseMoveAnimation);
+		document.body.addEventListener('mousedown', this.onMouseDownAnimation);
+    }
+    componentWillUnmount() {
+		document.body.removeEventListener('mousemove', this.onMouseMoveAnimation);
+		document.body.removeEventListener('mousedown', this.onMouseDownAnimation);
+    }
 	onMouseEnterAnimation = event => {
 		this.props.mouseEnterAnimation();
 	};
 	onMouseLeaveAnimation = event => {
-		this.props.mouseLeaveAnimation(false);
-		setTimeout(() => {
+		this.props.mouseLeaveAnimation();
+		/*setTimeout(() => {
 			this.props.mouseLeaveAnimation(true);
-		}, 333);
+		}, 333);*/
 	};
 	onMouseMoveAnimation = event => {
 		const mouse = document.querySelector('#mouse');
@@ -33,25 +41,29 @@ class App extends Component {
 			this.props.mouseDownAnimation(true);
 		}, 333);
 	};
-	/*onMouseUp = event => {
-		const mouseAnim = this.state.mouseAnim.filter((i, _class) => _class !== 'clickAnim');
-		//setTimeout(() => {
-		this.setState({
-			mouseAnim: mouseAnim
-		});
-		//}, 500)
-	};*/
 	render() {
+		const { mouse, menu } = this.props;
 		return (
-			<div className="page" onMouseMove={this.onMouseMoveAnimation} onMouseDown={this.onMouseDownAnimation} onScroll={this.onScrollAnimation}>
-				<Mouse animation={this.props.mouse.animation} />
-				<Header toggleMenu={this.props.toggleMenu} menuClass={this.props.menu.menuClass} />
+			<React.Fragment>
+				{/*<div className="page" onMouseMove={this.onMouseMoveAnimation} onMouseDown={this.onMouseDownAnimation}>*/}
+				<Mouse animation={mouse.animation} />
+				<Header
+					onMouseEnterAnimation={this.onMouseEnterAnimation}
+					onMouseLeaveAnimation={this.onMouseLeaveAnimation}
+					toggleMenu={this.props.toggleMenu}
+					menuClass={menu.menuClass}
+				/>
 				<Content
 					onMouseEnterAnimation={this.onMouseEnterAnimation}
 					onMouseLeaveAnimation={this.onMouseLeaveAnimation}
+					page={menu.page}
 				/>
-				<Footer />
-			</div>
+				<Footer
+					onMouseEnterAnimation={this.onMouseEnterAnimation}
+					onMouseLeaveAnimation={this.onMouseLeaveAnimation}
+				/>
+				{/*</div>*/}
+			</React.Fragment>
 		)
 	}
 }
