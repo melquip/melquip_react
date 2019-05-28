@@ -3,12 +3,11 @@ import Tilt from 'react-tilt';
 
 import MenuOverlay from '../../components/MenuOverlay';
 import HomeOverlay from '../../components/HomeOverlay';
-import WorkOverlay from "../../components/WorkOverlay";
+import WorkOverlay from '../../components/WorkOverlay';
 
 class Content extends Component {
-	
 	render() {
-		const { onMouseEnterAnimation, onMouseLeaveAnimation, page } = this.props;
+		const { page, menus } = this.props;
 		const slides = [
 			{
 				id: 1,
@@ -41,9 +40,9 @@ class Content extends Component {
 					perspective: 1000,
 					reset: true
 				}}>
-					<HomeOverlay visible={page == 'home'} onMouseEnterAnimation={onMouseEnterAnimation} onMouseLeaveAnimation={onMouseLeaveAnimation} />
-					<MenuOverlay visible={page == 'menu'} onMouseEnterAnimation={onMouseEnterAnimation} onMouseLeaveAnimation={onMouseLeaveAnimation} />
-					<WorkOverlay slides={slides} visible={page == 'work'} onMouseEnterAnimation={onMouseEnterAnimation} onMouseLeaveAnimation={onMouseLeaveAnimation} />
+					<HomeOverlay visible={page === 'home'} />
+					<MenuOverlay visible={page === 'menu'} menus={menus}/>
+					<WorkOverlay visible={page === 'work'} slides={slides} />
 				</Tilt>
 			</section>
 		);

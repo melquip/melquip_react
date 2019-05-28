@@ -1,8 +1,9 @@
 import {
 	MOUSE_ENTER_ANIMATION,
 	MOUSE_LEAVE_ANIMATION,
-	MOUSE_UP_ANIMATION,
-	MOUSE_DOWN_ANIMATION
+	MOUSE_DOWN_ANIMATION,
+	MOUSE_GO_WHITE,
+	MOUSE_GO_BLACK
 } from "../actions/types";
 
 const initialState = {
@@ -12,6 +13,18 @@ const initialState = {
 export default function(state = initialState, action) {
 	let mouseClasses;
 	switch (action.type) {
+		case MOUSE_GO_WHITE:
+			mouseClasses = state.animation.filter((c, i) => c !== 'white');
+			return {
+				...state,
+				animation: [...mouseClasses, 'white']
+			};
+		case MOUSE_GO_BLACK:
+			mouseClasses = state.animation.filter((c, i) => c !== 'white');
+			return {
+				...state,
+				animation: [...mouseClasses]
+			};
 		case MOUSE_ENTER_ANIMATION:
 			mouseClasses = state.animation.filter((c, i) => c !== 'enterAnim' && c !== 'leaveAnim');
 			return {

@@ -2,9 +2,22 @@ import {
 	MOUSE_ENTER_ANIMATION,
 	MOUSE_LEAVE_ANIMATION,
 	MOUSE_DOWN_ANIMATION,
-	MOUSE_UP_ANIMATION
+	MOUSE_GO_WHITE,
+	MOUSE_GO_BLACK,
 } from "./types";
 
+export const mouseGoWhite = event => dispatch => {
+	dispatch({
+		type: MOUSE_GO_WHITE,
+		payload: true,
+	})
+};
+export const mouseGoBlack = event => dispatch => {
+	dispatch({
+		type: MOUSE_GO_BLACK,
+		payload: true,
+	})
+};
 export const mouseEnterAnimation = event => dispatch => {
 	dispatch({
 		type: MOUSE_ENTER_ANIMATION,
@@ -17,15 +30,15 @@ export const mouseLeaveAnimation = event => dispatch => {
 		payload: true,//event.target
 	})
 };
-export const mouseDownAnimation = remove => dispatch => {
+export const mouseDownAnimation = event => dispatch => {
 	dispatch({
 		type: MOUSE_DOWN_ANIMATION,
-		payload: remove,//event.target
-	})
-};
-export const mouseUpAnimation = event => dispatch => {
-	dispatch({
-		type: MOUSE_UP_ANIMATION,
-		payload: true,//event.target
-	})
+		payload: false,//event.target
+	});
+	setTimeout(() => {
+		dispatch({
+			type: MOUSE_DOWN_ANIMATION,
+			payload: true,//event.target
+		})
+	}, 333);
 };

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MenuOverlay = ({ visible, onMouseEnterAnimation, onMouseLeaveAnimation }) => {
-	const menus = ['About Me', 'My Work', 'Hire Me'];
+const MenuOverlay = ({ visible, menus }) => {
 	return (
 		<div id="menu" className={["pageContent", "menu", (visible?"":"hidden")].join(' ')}>
 			<div className="TiltBackground menu">
@@ -14,14 +13,13 @@ const MenuOverlay = ({ visible, onMouseEnterAnimation, onMouseLeaveAnimation }) 
 				{/*<div className={['contentOverlay', 'menu', (visible ? null : 'hidden')].join(' ')}>*/}
 					<ul>
 						{
-							menus.map((menu, i) => <li
-								key={i}
-								onMouseEnter={onMouseEnterAnimation}
-								onMouseLeave={onMouseLeaveAnimation}>
-								<a href="#" className="hoverSwitchCase">
-									<span>{menu}</span><span>{menu}</span>
-								</a>
-							</li>)
+							menus.map((menu, i) =>
+								<li key={i}>
+									<a href={'#' + menu.toLowerCase()} className="hoverSwitchCase clickable">
+										<span>{menu}</span><span>{menu}</span>
+									</a>
+								</li>
+							)
 						}
 					</ul>
 				</div>
@@ -31,9 +29,8 @@ const MenuOverlay = ({ visible, onMouseEnterAnimation, onMouseLeaveAnimation }) 
 };
 
 MenuOverlay.propTypes = {
+	menus: PropTypes.array.isRequired,
 	visible: PropTypes.bool.isRequired,
-	onMouseEnterAnimation: PropTypes.func.isRequired,
-	onMouseLeaveAnimation: PropTypes.func.isRequired
 };
 
 export default MenuOverlay;

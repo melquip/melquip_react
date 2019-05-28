@@ -6,6 +6,9 @@ body
 	a
 		color inherit
 
+.clickable
+	cursor pointer
+
 .page
 	width 100%
 	height 100vh
@@ -21,7 +24,7 @@ body
 	size 30px
 	z-index 9999
 	fixed top -100px left -100px
-	border 3px solid $white
+	border 3px solid $black
 	border-radius 100%
 	transform translate(-50%, -50%)
 	//transition transform 1s cubic-bezier(0.770, 0.000, 0.175, 1.000)
@@ -35,7 +38,8 @@ body
 	&.leaveAnim
 		&:not(.enterAnim)
 			animation leaveAnim .333s forwards
-
+	&.white
+		border-color $white !important
 
 @keyframes enterAnim
 	0%
@@ -48,7 +52,6 @@ body
 		background-color rgba($black,.5)
 		/*box-shadow 0 0 5px rgba(0,0,0,.6)
 		background-color rgba(0,0,0,.5)*/
-
 
 @keyframes leaveAnim
 	0%
@@ -97,13 +100,16 @@ footer
 				text-align center
 			&:nth-child(3)
 				text-align right
+				color #ccc
 	a
 		display inline-block
-		border 2px solid $blue
 		padding 0 20px
-		line-height 46px
-		f $blue
-
+		f 16, 46, $greenLight
+		border 2px solid $greenLight
+		background-color $white
+		&:hover
+			color $white
+			background-color $greenLight
 
 // in PX
 $hambSize = 100
@@ -164,23 +170,16 @@ body .menu-open .hamburguer div
 
 
 
-
-
-
-
 $_titlePadding = unit(40, 'px')
 $_menuPadding = unit(20, 'px')
 
 h1, h2
 	position relative
 	padding $_titlePadding
-	f 40, 46, 'regular2' .1em $white nowrap
+	transition all .2s ease-in-out, color 0s ease-in-out
+	f 40, 46, 'regular2' .1em $black nowrap
 
-h1:after
-	content ''
-	size 100% 0px
-	border-bottom 1px dotted
-	absolute bottom 0 left 0
+
 
 #content
 	margin top -25px bottom -25px
@@ -191,22 +190,41 @@ h1:after
 	span
 		display block
 		opacity 1
+		color inherit
 		visibility visible
 		transition all 0.2s ease-in-out
 		&:first-child
 			text-transform uppercase
 		&:last-child
+			width 100%
+			absolute top 0 left 0
 			text-transform lowercase
 			visibility hidden
 			opacity 0
-	&:hover
+
+	&.invert
 		span
 			&:first-child
-				opacity 0
-				visibility hidden
+				text-transform lowercase
 			&:last-child
-				opacity 1
-				visibility visible
+				text-transform uppercase
+
+
+
+header .active .hoverSwitchCase, header .hoverSwitchCase:hover
+	span:last-child
+		color $blue
+
+.active .hoverSwitchCase, .hoverSwitchCase:hover
+	span
+		&:first-child
+			opacity 0
+			visibility hidden
+		&:last-child
+			opacity 1
+			visibility visible
+
+
 
 .Tilt
 	size 100% calc(100vh - 160px)
@@ -228,26 +246,36 @@ h1:after
 			z-index 2
 			size 125% 100%
 			margin-left -75%
-			//background-color $blue
 			transform skew($degreesInvert)
+			//background-color $blue
 
 		&.smooth
 			transition all 1s cubic-bezier(.2,.8,.2,1)
 
 
 .TiltOverlay
-	user-select none
 	z-index 4
 	size 100%
+	user-select none
 	absolute top 0 left 0
 	transform-style preserve-3d
 
 	h1, h2
-		span
-			&:last-child
-				width unquote('calc(100% - ' + $_titlePadding*2 + ')')
-				absolute top $_titlePadding left $_titlePadding
+		color $greenLight
+		border 1px solid $greenLight
+		background-color $white
+		&:hover
+			color $white
+			background-color $greenLight
 
+		span:last-child
+			absolute top $_titlePadding left $_titlePadding
+			width unquote('calc(100% - ' + $_titlePadding*2 + ')')
+
+	h1
+		text-align center
+	h2
+		margin-top -1px
 
 .pageContent
 	absolute top 0 left 0
@@ -281,9 +309,11 @@ h1:after
 	absolute top 0 left 0
 	transition opacity .13s ease-in-out, visibility .13s ease-in-out, transform .33s ease-in-out .33s
 
+/*
 .home
 	.TiltBackground
 		background-color $darkGray
+*/
 
 .home, .menu
 	.contentOverlay
@@ -309,3 +339,18 @@ h1:after
 					&:last-child
 						width unquote('calc(100% - ' + $_menuPadding*2 + ')')
 						absolute top $_menuPadding left $_menuPadding
+
+
+.menuInline
+	clearfix()
+	absolute top 0 left 80px
+	li
+		float left
+		a
+			display block
+			f 24, 100, 'regular2' uppercase $black
+			span
+				padding 0 20px
+
+		&:first-child a span
+			padding-left 0
