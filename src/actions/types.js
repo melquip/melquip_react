@@ -5,5 +5,7 @@ export const MOUSE_GO_WHITE = 'MOUSE_GO_WHITE';
 export const MOUSE_GO_BLACK = 'MOUSE_GO_BLACK';
 //export const MOUSE_UP_ANIMATION = 'MOUSE_UP_ANIMATION';
 
+export const MENU_HOME = 'MENU_HOME';
+export const MENU_ABOUT = 'MENU_ABOUT';
 export const MENU_WORK = 'MENU_WORK';
 export const MENU_TOGGLE = 'MENU_TOGGLE';

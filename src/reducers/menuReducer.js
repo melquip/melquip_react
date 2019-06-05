@@ -1,18 +1,39 @@
 import {
+	MENU_HOME,
+	MENU_ABOUT,
 	MENU_WORK,
 	MENU_TOGGLE
 } from "../actions/types";
 
+let firstPage = window.location.pathname.split('/')[1];
+if(window.location.pathname === '/') {
+	firstPage = 'home';
+}
+
 const initialState = {
-	prevPage: 'home',
-	page: 'home',
+	prevPage: firstPage,
+	page: firstPage,
 	menuOpen: false,
-	menuClass: []
+	menuClass: [],
+	menus: ['About', 'Work']
 };
 
 export default function(state = initialState, action) {
 	let menuClasses;
+	//console.log("MENU REDUCER", action.type);
 	switch (action.type) {
+		case MENU_HOME:
+			return {
+				...state,
+				prevPage: state.page,
+				page: 'home',
+			};
+		case MENU_ABOUT:
+			return {
+				...state,
+				prevPage: state.page,
+				page: 'about',
+			};
 		case MENU_WORK:
 			return {
 				...state,
@@ -31,8 +52,6 @@ export default function(state = initialState, action) {
 				prevPage: state.page,
 				page: (!state.menuOpen ? 'menu' : state.prevPage),
 			};
-		default:
-			return state;
+		default: return state;
 	}
-	
 }

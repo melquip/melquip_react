@@ -12,6 +12,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
 	let mouseClasses;
+	//console.log("MOUSE REDUCER!", action.type);
 	switch (action.type) {
 		case MOUSE_GO_WHITE:
 			mouseClasses = state.animation.filter((c, i) => c !== 'white');
@@ -46,8 +47,6 @@ export default function(state = initialState, action) {
 				...state,
 				animation: [...mouseClasses]
 			};
-		default:
-			return state;
+		default: return state;
 	}
-	
 }

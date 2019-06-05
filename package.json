@@ -9,13 +9,17 @@
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
 		"react-redux": "^7.0.3",
+		"react-router": "^5.0.0",
+		"react-router-dom": "^5.0.0",
 		"react-scripts": "2.1.8",
+		"react-slick": "^0.24.0",
 		"react-tilt": "^0.1.4",
 		"redux": "^4.0.1",
-		"redux-thunk": "^2.3.0"
+		"redux-thunk": "^2.3.0",
+		"slick-carousel": "^1.8.1"
 	},
 	"scripts": {
-		"fix": "npm install --save https://github.com/melquip/create-react-app-stylus.git",
+		"fix": "npm install --save https://github.com/melquip/create-react-app-stylus.git && npm start",
 		"start": "react-scripts-with-stylus start src/media/css/index.styl nib",
 		"build": "react-scripts-with-stylus build src/media/css/index.styl nib",
 		"test": "react-scripts test",

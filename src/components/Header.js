@@ -1,42 +1,46 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import logo from '../media/svg/logoBlack.png';
 
-const Header = ({ menus, menuClass, toggleMenu }) => {
+import { toggleMenu } from '../actions/menuActions';
+
+const Header = ({ menu }) => {
+	const { menuClass, menus } = menu;
 	return (
 		<header className={menuClass.join(' ')}>
 			<div className="inner">
 				<ul className="menuInline">
 					{
-						menus.map((menu, i) => <li key={i}>
-							<a href={'#' + menu.toLowerCase()}
-							   className="hoverSwitchCase clickable">
-								<span>{menu}</span><span>{menu}</span>
-							</a>
+						menus.map((m, i) => <li key={i}>
+							<Link to={'/' + m.toLowerCase()} className="hoverSwitchCase clickable">
+								<span>{m}</span><span>{m}</span>
+							</Link>
 						</li>)
 					}
 				</ul>
 				{/*<div className="hamburguer"
-				     onClick={toggleMenu}
+				     onClick={menu.toggleMenu}
 				     onMouseEnter={onMouseEnterAnimation}
 				     onMouseLeave={onMouseLeaveAnimation}>
 					<div /><div /><div />
 				</div>*/}
-				<a	href="#home"
-					className="logo clickable">
+				<Link to="/home" className="logo clickable">
 					<img src={logo} alt="Melquip Logo" />
-				</a>
+				</Link>
 			</div>
 		</header>
 	);
 };
 
 Header.propTypes = {
-	menus: PropTypes.array.isRequired,
-	menuClass: PropTypes.array.isRequired,
-	toggleMenu: PropTypes.func.isRequired
+	menu: PropTypes.object.isRequired,
 };
+const mapStateToProps = state => ({
+	menu: state.menu
+});
+export default connect(mapStateToProps, { toggleMenu })(Header);
 
-export default Header;
+/*export default Header;*/
 
-/* todo: url to homepage on logo */

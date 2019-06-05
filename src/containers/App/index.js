@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom'
 
-import { toggleMenu, goWork } from '../../actions/menuActions';
 import { mouseEnterAnimation, mouseLeaveAnimation, mouseDownAnimation, mouseGoWhite, mouseGoBlack } from '../../actions/mouseActions';
 
 import Content from '../../containers/Content';
@@ -43,19 +43,14 @@ class App extends Component {
 		//this.setState({ mousePos: { left: event.clientX + 'px', top: event.clientY + this.scrollTop + 'px' }});
 	};
 	render() {
-		const { mouse, menu, toggleMenu,
-			mouseEnterAnimation, mouseLeaveAnimation,
-			mouseGoWhite, mouseGoBlack } = this.props;
-		const menus = ['About', 'Work'];
+		const { mouse } = this.props;
 		return (
-			<React.Fragment>
-				{/*<div className="page" onMouseMove={this.onMouseMoveAnimation} onMouseDown={this.props.mouseDownAnimation}>*/}
+			<BrowserRouter>
 				<Mouse animation={mouse.animation} />
-				<Header menus={menus} toggleMenu={toggleMenu} menuClass={menu.menuClass} />
-				<Content menus={menus} page={menu.page} />
+				<Header />
+				<Content />
 				<Footer />
-				{/*</div>*/}
-			</React.Fragment>
+			</BrowserRouter>
 		)
 	}
 }
@@ -66,8 +61,10 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-	mouseEnterAnimation, mouseLeaveAnimation, mouseDownAnimation, mouseGoWhite, mouseGoBlack,
-	toggleMenu, goWork
+	mouseEnterAnimation, mouseLeaveAnimation, mouseDownAnimation, mouseGoWhite, mouseGoBlack
 })(App);
 
-/* todo: remove mouseUpAnimation */
+/*
+<div className="page" onMouseMove={this.onMouseMoveAnimation} onMouseDown={this.props.mouseDownAnimation}>
+</div>
+*/

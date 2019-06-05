@@ -1,34 +1,71 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Tilt from 'react-tilt';
+import img from '../../media/img/recent-work-1.png';
+import flama from '../../media/img/flamapt.jpg';
+import mirandabikeparts from '../../media/img/mirandabikepartscom.jpg';
+
+import { withRouter } from 'react-router'
+import { goHome, goWork } from '../../actions/menuActions';
+
 
 import MenuOverlay from '../../components/MenuOverlay';
 import HomeOverlay from '../../components/HomeOverlay';
 import WorkOverlay from '../../components/WorkOverlay';
 
 class Content extends Component {
+	componentDidMount() {
+		// this block allows to change route allowing animations with hidden components from other routes
+		this.props.history.listen((location, action) => {
+			console.log("on route change", location);
+			switch (location.pathname) {
+				case '/':
+				case '/home':
+				case '/about':
+					this.props.goHome();
+					return;
+				case '/work':
+					this.props.goWork();
+					return;
+				default:
+					//this.props.goError();
+					return;
+			}
+		});
+	}
 	render() {
-		const { page, menus } = this.props;
+		const { menu } = this.props;
 		const slides = [
 			{
 				id: 1,
 				title: "Miranda Bike Parts",
-				desc: "Miranda Bike Parts is a website Miranda Bike Parts is a website Miranda Bike Parts is a website Miranda Bike Parts is a website"
+				desc: "Miranda Bike Parts is a website Miranda Bike Parts is a website Miranda Bike Parts is a website Miranda Bike Parts is a website",
+				img: mirandabikeparts
 			},
 			{
 				id: 2,
 				title: "Flama",
-				desc: "Flama is a website Flama is a website Flama is a website Flama is a website"
+				desc: "Flama is a website Flama is a website Flama is a website Flama is a website",
+				img: flama
 			},
 			{
 				id: 3,
 				title: "Agenda Urbana",
-				desc: "Agenda Urbana is a website Agenda Urbana is a website Agenda Urbana is a website Agenda Urbana is a website"
+				desc: "Agenda Urbana is a website Agenda Urbana is a website Agenda Urbana is a website Agenda Urbana is a website",
+				img: img
 			},
 			{
 				id: 4,
 				title: "AMTSM",
-				desc: "AMTSM is a website AMTSM is a website AMTSM is a website AMTSM is a website"
-			}
+				desc: "AMTSM is a website AMTSM is a website AMTSM is a website AMTSM is a website",
+				img: img
+			},
+			{
+				id: 5,
+				title: "Miranda Bike Parts",
+				desc: "Miranda Bike Parts is a website Miranda Bike Parts is a website Miranda Bike Parts is a website Miranda Bike Parts is a website",
+				img: mirandabikeparts
+			},
 		];
 		return (
 			<section id="content">
@@ -40,17 +77,21 @@ class Content extends Component {
 					perspective: 1000,
 					reset: true
 				}}>
-					<HomeOverlay visible={page === 'home'} />
-					<MenuOverlay visible={page === 'menu'} menus={menus}/>
-					<WorkOverlay visible={page === 'work'} slides={slides} />
+					<HomeOverlay visible={menu.page === 'home'} />
+					<MenuOverlay visible={menu.page === 'menu'} menus={menu.menus}/>
+					<WorkOverlay visible={menu.page === 'work'} slides={slides} />
 				</Tilt>
 			</section>
 		);
 	}
 }
 
-export default Content;
+const mapStateToProps = state => ({
+	menu: state.menu
+});
+export default withRouter(connect(mapStateToProps, { goHome, goWork })(Content));
 
+//export default Content;
 
 /* SLIDE MOVES ON MOUSE MOVE */
 /*

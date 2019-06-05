@@ -1,6 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import './media/css/index.css';
+
 import App from './containers/App';
 
 import { Provider } from 'react-redux';

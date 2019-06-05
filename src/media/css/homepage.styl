@@ -173,11 +173,6 @@ body .menu-open .hamburguer div
 $_titlePadding = unit(40, 'px')
 $_menuPadding = unit(20, 'px')
 
-h1, h2
-	position relative
-	padding $_titlePadding
-	transition all .2s ease-in-out, color 0s ease-in-out
-	f 40, 46, 'regular2' .1em $black nowrap
 
 
 
@@ -248,10 +243,14 @@ header .active .hoverSwitchCase, header .hoverSwitchCase:hover
 			margin-left -75%
 			transform skew($degreesInvert)
 			//background-color $blue
-
+			img
+				margin-left 25%
 		&.smooth
 			transition all 1s cubic-bezier(.2,.8,.2,1)
 
+	img
+		size 100%
+		object-fit cover
 
 .TiltOverlay
 	z-index 4
@@ -261,21 +260,12 @@ header .active .hoverSwitchCase, header .hoverSwitchCase:hover
 	transform-style preserve-3d
 
 	h1, h2
-		color $greenLight
-		border 1px solid $greenLight
-		background-color $white
-		&:hover
-			color $white
-			background-color $greenLight
+		position relative
+		transition all .2s ease-in-out, color 0s ease-in-out
+		f 40, 46, 'regular2' .1em nowrap $black
 
-		span:last-child
-			absolute top $_titlePadding left $_titlePadding
-			width unquote('calc(100% - ' + $_titlePadding*2 + ')')
-
-	h1
-		text-align center
-	h2
-		margin-top -1px
+	p
+		f 16, 24, .1em
 
 .pageContent
 	absolute top 0 left 0
@@ -303,17 +293,46 @@ header .active .hoverSwitchCase, header .hoverSwitchCase:hover
 			top 0
 			left 100%
 
+
 .contentOverlay
-	size 100%
 	z-index 2
 	absolute top 0 left 0
-	transition opacity .13s ease-in-out, visibility .13s ease-in-out, transform .33s ease-in-out .33s
 
-/*
-.home
-	.TiltBackground
-		background-color $darkGray
-*/
+.work
+	.TiltOverlay
+		overflow hidden
+	.contentOverlay
+		background-color rgba($white, .9)
+		padding 50px
+		size 50% auto
+		top 0
+		left 0
+		transform translate3d(-100%, 0, 0)
+		transition all .33s ease-in-out 0s
+
+		h1, h2
+			color $greenLight
+			white-space normal
+		p
+			opacity 0
+			visibility hidden
+			max-height 0
+			overflow hidden
+			transition max-height .33s cubic-bezier(0, 1, 0, 1) .15875s
+			/* -.04125s */
+
+	.slick-active
+		.contentOverlay
+			transform translate3d(0, 0, 0)
+
+			h1, h2
+				padding-bottom 25px
+				transition padding .33s ease-in-out .35s
+			p
+				opacity 1
+				visibility visible
+				max-height 9999px
+				transition max-height .33s cubic-bezier(.5, 0, 1, 0) .45s
 
 .home, .menu
 	.contentOverlay
@@ -321,24 +340,45 @@ header .active .hoverSwitchCase, header .hoverSwitchCase:hover
 		top 50%
 		left 50%
 		transform translate3d(-50%, -50%, 250px)
+		transition opacity .13s ease-in-out, visibility .13s ease-in-out, transform .33s ease-in-out .33s
 	&.hidden
 		.contentOverlay
 			opacity 0
 			visibility hidden
 			transform translate3d(-50%, -50%, 0px)
 
+.home
+	.contentOverlay
+		h1, h2
+			color $greenLight
+			padding $_titlePadding
+			border 1px solid $greenLight
+			background-color $white
+			&:hover
+				color $white
+				background-color $greenLight
+
+			span:last-child
+				absolute top $_titlePadding left $_titlePadding
+				width unquote('calc(100% - ' + $_titlePadding*2 + ')')
+		h1
+			text-align center
+		h2
+			margin-top -1px
+
+
 .menu
 	.TiltOverlay
 		ul li
-			f 40, 46, 'regular2' .1em $white
+			f 40, 46, 'regular2' .1em $greenLight
 			a
 				display block
 				width 100%
 				padding $_menuPadding
-				span
-					&:last-child
-						width unquote('calc(100% - ' + $_menuPadding*2 + ')')
-						absolute top $_menuPadding left $_menuPadding
+				span:last-child
+					width unquote('calc(100% - ' + $_menuPadding*2 + ')')
+					absolute top $_menuPadding left $_menuPadding
+
 
 
 .menuInline
@@ -354,3 +394,53 @@ header .active .hoverSwitchCase, header .hoverSwitchCase:hover
 
 		&:first-child a span
 			padding-left 0
+
+
+
+/*
+.carousel
+	height 100%
+	//box-shadow inset 0 0 3px $black
+	transform-style preserve-3d
+	[class^="horizontalSlider"], [class^="carousel__slider-tray-wrapper"], [class^="sliderTray"], .carousel__slide
+		height 100%
+		transform-style preserve-3d
+
+	.carousel__slide
+		width 100%
+		*/
+.slick-slider
+	cursor move
+	cursor grab
+.slick-slider, .slick-list, .slick-track, .slick-slide, .slick-slide > div
+	/*transform translate3d(0, 0, 0)*/
+	transform-style preserve-3d
+	height 100%
+.slick-slide > div
+	width 100%
+	/*perspective 1000px*/
+
+.slick-dots
+	left -1px
+	bottom -1px
+	padding-top 10px
+	width calc(100% + 2px)
+	background-color $white
+	li
+		size auto
+		padding 5px 10px
+		margin 0
+		button
+			f 0, 0
+			size 10px
+			padding 0
+			border-radius 100%
+			background-color transparent
+			border 2px solid $greenLight
+			/*box-shadow 0 0 3px 1px rgba($black, .25)*/
+			&:before
+				content none
+
+		&.slick-active
+			button
+				background-color $greenLight
