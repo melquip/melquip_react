@@ -7,13 +7,13 @@ import logo from '../media/svg/logoBlack.png';
 import { toggleMenu } from '../actions/menuActions';
 
 const Header = ({ menu }) => {
-	const { menuClass, menus } = menu;
+	const { menuClass, menus, page } = menu;
 	return (
 		<header className={menuClass.join(' ')}>
 			<div className="inner">
 				<ul className="menuInline">
 					{
-						menus.map((m, i) => <li key={i}>
+						menus.map((m, i) => <li key={i} className={(page === m.toLowerCase() ? 'active' : '')}>
 							<Link to={'/' + m.toLowerCase()} className="hoverSwitchCase clickable">
 								<span>{m}</span><span>{m}</span>
 							</Link>

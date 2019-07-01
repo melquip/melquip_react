@@ -14,11 +14,11 @@ const initialState = {
 	prevPage: firstPage,
 	page: firstPage,
 	menuOpen: false,
-	menuClass: [],
+	menuClass: [], 
 	menus: ['About', 'Work']
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action = MENU_HOME) {
 	let menuClasses;
 	//console.log("MENU REDUCER", action.type);
 	switch (action.type) {
@@ -43,7 +43,7 @@ export default function(state = initialState, action) {
 		case MENU_TOGGLE:
 			menuClasses = state.menuClass.filter((c, i) => c !== 'menu-open');
 			if(!state.menuOpen) {
-				menuClasses.push('menu-open')
+				menuClasses.push('menu-open');
 			}
 			return {
 				...state,

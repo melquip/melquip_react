@@ -5,12 +5,17 @@ import img from '../../media/img/recent-work-1.png';
 import flama from '../../media/img/flamapt.jpg';
 import mirandabikeparts from '../../media/img/mirandabikepartscom.jpg';
 
-import { withRouter } from 'react-router'
-import { goHome, goWork } from '../../actions/menuActions';
+import { withRouter } from 'react-router';
+import {
+	goHome,
+	goAbout,
+	goWork,
+} from '../../actions/menuActions';
 
 
 import MenuOverlay from '../../components/MenuOverlay';
 import HomeOverlay from '../../components/HomeOverlay';
+import AboutOverlay from '../../components/AboutOverlay';
 import WorkOverlay from '../../components/WorkOverlay';
 
 class Content extends Component {
@@ -21,8 +26,10 @@ class Content extends Component {
 			switch (location.pathname) {
 				case '/':
 				case '/home':
-				case '/about':
 					this.props.goHome();
+					return;
+				case '/about':
+					this.props.goAbout();
 					return;
 				case '/work':
 					this.props.goWork();
@@ -79,6 +86,7 @@ class Content extends Component {
 				}}>
 					<HomeOverlay visible={menu.page === 'home'} />
 					<MenuOverlay visible={menu.page === 'menu'} menus={menu.menus}/>
+					<AboutOverlay visible={menu.page === 'about'} />
 					<WorkOverlay visible={menu.page === 'work'} slides={slides} />
 				</Tilt>
 			</section>
@@ -89,7 +97,11 @@ class Content extends Component {
 const mapStateToProps = state => ({
 	menu: state.menu
 });
-export default withRouter(connect(mapStateToProps, { goHome, goWork })(Content));
+export default withRouter(connect(mapStateToProps, {
+	goHome,
+	goAbout,
+	goWork
+})(Content));
 
 //export default Content;
 

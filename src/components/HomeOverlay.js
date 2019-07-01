@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const HomeOverlay = ({ visible }) => {
 	return (
@@ -10,12 +11,16 @@ const HomeOverlay = ({ visible }) => {
 			</div>
 			<div className="TiltOverlay home">
 				<div className="contentOverlay home">
-					<h1 className="hoverSwitchCase invert clickable">
-						<span>Melqui<br/>Pereira</span><span>Melqui<br/>Pereira</span>
-					</h1>
-					<h2 className="hoverSwitchCase invert clickable">
-						<span>Front-end<br/>Developer</span><span>Front-end<br/>Developer</span>
-					</h2>
+					<Link to="/about">
+						<h1 className="hoverSwitchCase invert clickable">
+							<span>Melqui<br/>Pereira</span><span>Melqui<br/>Pereira</span>
+						</h1>
+					</Link>
+					<Link to="/work">
+						<h2 className="hoverSwitchCase invert clickable">
+							<span>Front-end<br/>Developer</span><span>Front-end<br/>Developer</span>
+						</h2>
+					</Link>
 				</div>
 			</div>
 		</div>
